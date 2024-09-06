@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tutorial.romanconverter.model.RomanConverter;
 
@@ -20,6 +21,10 @@ public class RomanConverterController {
     }
     @GetMapping(value = "/roman-converter/{roman}")
     public String romanConverterWithPathVariable(@PathVariable(value = "roman") String roman, Model model) {
+        return getRomanConverterPage(roman, model);
+    }
+    @GetMapping(value = "/roman-converter")
+    public String romanConverterWithReqParam(@RequestParam(value = "roman") String roman, Model model) {
         return getRomanConverterPage(roman, model);
     }
 
