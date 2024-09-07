@@ -36,6 +36,16 @@ public class RomanConverterController {
         model.addAttribute("requestDTO", requestDTO);
         return "form.html";
     }
+    @GetMapping("/about-me")
+    public String aboutMe(Model model) {
+        String getNama = "Muzaki Ahmad Ridho Azizy";
+        String getNPM = "2206824924";
+        model.addAttribute("getNama", getNama);
+        model.addAttribute("getNPM", getNPM);
+        return "aboutme.html";
+}
+
+    
 
 
     @PostMapping(value = "/convert")
