@@ -55,6 +55,6 @@
 
 ### Apa yang belum saya pahami
 
-- [ ] **Masih banyak yang belum saya pahami, sehingga saya akan eksplor terlabih dahulu** 
+- [ ] **Apakah bisa convert int to roman dgn tipe string?** 
 
 - [x] **Kenapa..?**
