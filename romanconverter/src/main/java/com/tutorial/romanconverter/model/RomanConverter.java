@@ -1,21 +1,21 @@
 package com.tutorial.romanconverter.model;
- 
+
 import java.util.HashMap;
- 
+
 public class RomanConverter {
- 
+
     private String roman;
     private static HashMap<Character, Integer> map = new HashMap<>();
- 
+
     public RomanConverter(String roman) {
         this.roman = roman;
         initializeMap();
     }
- 
+
     public String getRoman() {
         return roman;
     }
- 
+
     private void initializeMap() {
         map = new HashMap<>();
         map.put('I', 1);
@@ -26,19 +26,23 @@ public class RomanConverter {
         map.put('D', 500);
         map.put('M', 1000);
     }
- 
- 
+
+    // Metode untuk validasi apakah input hanya mengandung karakter Romawi
+    public boolean isValidRoman() {
+        // Validasi hanya karakter I, V, X, L, C, D, M yang diizinkan
+        return roman.matches("[IVXLCDM]+");
+    }
+
     public int convertRomanToDecimal() {
         int res = 0;
         int curr = 0;
         int next = 0;
- 
-        int i = roman.length()-1;
+
+        int i = roman.length() - 1;
         while (i >= 0) {
- 
             curr = map.get(roman.charAt(i));
-            next = (i == 0) ? 0 : map.get(roman.charAt(i-1));
- 
+            next = (i == 0) ? 0 : map.get(roman.charAt(i - 1));
+
             if (curr > next) {
                 res += curr;
                 res -= next;
@@ -47,10 +51,9 @@ public class RomanConverter {
                 res += curr;
                 i--;
             }
- 
+
             curr = 0;
             next = 0;
- 
         }
         return res;
     }
