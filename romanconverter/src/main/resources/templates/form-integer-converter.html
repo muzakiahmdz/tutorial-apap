@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Integer Converter Page</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+    <div class="card">
+        <div class="feature-title">
+            <h3>Integer to Roman Converter</h3>
+        </div>
+        <div class="container">
+            <form th:action="@{/convert-integer}" th:object="${integerRequestDTO}" method="POST">
+                <h3>Enter the Integer that you want to convert:</h3>
+                <div class="wrapper">
+                    <input class="form-control" type="number" th:field="*{integerValue}" required />
+                    <button class="btn btn-primary" type="submit">Convert</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
