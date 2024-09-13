@@ -1,0 +1,38 @@
+<body>
+    <div class="container">
+        <div class="card m-4 p-4">
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <h2>Tambah Proyek</h2>
+                    <br>
+                    <form th:action="@{/proyek/add}" th:object="${proyekDTO}" method="POST">
+                        <input class="form-control" type="hidden" th:field="*{id}"/>
+                        
+                        <label>Nama Proyek: </label><br>
+                        <input class="form-control" type="text" th:field="*{nama}"/>
+                        <br><br>
+
+                        <label>Tanggal Mulai: </label><br>
+                        <input class="form-control" type="date" th:field="*{tanggalMulai}"/>
+                        <br><br>
+
+                        <label>Tanggal Selesai: </label><br>
+                        <input class="form-control" type="date" th:field="*{tanggalSelesai}"/>
+                        <br><br>
+
+                        <label>Status: </label><br>
+                        <input required class="form-control" type="text" th:field="*{status}"/>
+                        <br><br>
+
+                        <label>Developer: </label><br>
+                        <input required class="form-control" type="text" th:field="*{developer}"/>
+                        <br><br>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a class="btn btn-primary" href="/">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
