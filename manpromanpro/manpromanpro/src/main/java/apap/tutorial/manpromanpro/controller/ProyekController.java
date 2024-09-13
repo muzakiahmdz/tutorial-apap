@@ -2,12 +2,14 @@ package apap.tutorial.manpromanpro.controller;
 
 import java.util.UUID;
 import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,6 +38,11 @@ public class ProyekController {
 
     @PostMapping("/proyek/add")
     public String addProyek(@ModelAttribute ProyekDTO proyekDTO, Model model) {
+        // Cek validasi tanggal
+        if (proyekDTO.getTanggalSelesai().before(proyekDTO.getTanggalMulai())) {
+            return "errorTanggal.html"; // Arahkan ke halaman error jika validasi gagal
+        }
+
         // Generate UUID baru untuk proyek
         UUID idProyek = UUID.randomUUID();
 
@@ -65,14 +72,62 @@ public class ProyekController {
         return "viewall-proyek";
     }
 
-    @GetMapping("/proyek")
-    public String detailProyek(@RequestParam(value = "id") UUID id, Model model) {
-        // Mengambil proyek berdasarkan id
+    @GetMapping("/proyek/{id}")
+    public String detailProyek(@PathVariable UUID id, Model model) {
         var proyek = proyekService.getProyekById(id);
-
-        // Add proyek ke 'proyek' untuk dirender di thymeleaf
         model.addAttribute("proyek", proyek);
-
         return "view-proyek";
     }
+
+    @GetMapping("/proyek/{id}/update")
+    public String showUpdateProyekForm(@PathVariable UUID id, Model model) {
+        var proyek = proyekService.getProyekById(id);
+        if (proyek != null) {
+            // Isi DTO dengan data proyek yang ada
+            ProyekDTO proyekDTO = new ProyekDTO(
+                proyek.getId(), 
+                proyek.getNama(), 
+                proyek.getTanggalMulai(), 
+                proyek.getTanggalSelesai(), 
+                proyek.getStatus(), 
+                proyek.getDeveloper());
+            
+            model.addAttribute("proyekDTO", proyekDTO);
+            return "form-update-proyek";  // Mengarahkan ke halaman update
+        }
+        return "redirect:/proyek/viewall";  // Jika tidak ditemukan, kembali ke daftar
+    }
+    
+    @PostMapping("/proyek/{id}/update")
+    public String updateProyek(@PathVariable UUID id, @ModelAttribute ProyekDTO proyekDTO, Model model) {
+        // Cek validasi tanggal
+        if (proyekDTO.getTanggalSelesai().before(proyekDTO.getTanggalMulai())) {
+            return "errorTanggal.html"; // Arahkan ke halaman error jika validasi gagal
+        }
+        var proyek = proyekService.getProyekById(id);
+        if (proyek != null) {
+            // Perbarui data proyek dengan data dari DTO
+            proyek.setNama(proyekDTO.getNama());
+            proyek.setTanggalMulai(proyekDTO.getTanggalMulai());
+            proyek.setTanggalSelesai(proyekDTO.getTanggalSelesai());
+            proyek.setStatus(proyekDTO.getStatus());
+            proyek.setDeveloper(proyekDTO.getDeveloper());
+            
+            model.addAttribute("id", proyek.getId());
+            return "success-update-proyek";  // Menampilkan halaman feedback sukses
+        }
+        return "redirect:/proyek/viewall";
+    }
+    @GetMapping("/proyek/{id}/delete")
+    public String deleteProyek(@PathVariable UUID id, Model model) {
+        var proyek = proyekService.getProyekById(id);
+        if (proyek != null) {
+            proyekService.deleteProyek(id);
+            model.addAttribute("id", id);
+            return "success-delete-proyek";
+        }
+        return "redirect:/proyek/viewall";
+    }
+    
+
 }

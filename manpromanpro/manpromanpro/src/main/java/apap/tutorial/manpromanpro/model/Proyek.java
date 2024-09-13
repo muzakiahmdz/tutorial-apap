@@ -1,12 +1,19 @@
 package apap.tutorial.manpromanpro.model;
 
+import java.util.Date;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class Proyek {
     private UUID id;
     private String nama;
-    private String tanggalMulai;
-    private String tanggalSelesai;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date tanggalMulai;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date tanggalSelesai;
+    
     private String status;
     private String developer;
 
@@ -14,7 +21,7 @@ public class Proyek {
     public Proyek() {}
 
     // Constructor lengkap dengan 6 parameter
-    public Proyek(UUID id, String nama, String tanggalMulai, String tanggalSelesai, String status, String developer) {
+    public Proyek(UUID id, String nama, Date tanggalMulai, Date tanggalSelesai, String status, String developer) {
         this.id = id;
         this.nama = nama;
         this.tanggalMulai = tanggalMulai;
@@ -40,19 +47,19 @@ public class Proyek {
         this.nama = nama;
     }
 
-    public String getTanggalMulai() {
+    public Date getTanggalMulai() {
         return tanggalMulai;
     }
 
-    public void setTanggalMulai(String tanggalMulai) {
+    public void setTanggalMulai(Date tanggalMulai) {
         this.tanggalMulai = tanggalMulai;
     }
 
-    public String getTanggalSelesai() {
+    public Date getTanggalSelesai() {
         return tanggalSelesai;
     }
 
-    public void setTanggalSelesai(String tanggalSelesai) {
+    public void setTanggalSelesai(Date tanggalSelesai) {
         this.tanggalSelesai = tanggalSelesai;
     }
 

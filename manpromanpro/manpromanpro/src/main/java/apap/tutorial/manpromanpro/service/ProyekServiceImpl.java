@@ -16,6 +16,10 @@ public class ProyekServiceImpl implements ProyekService {
     public void createProyek(Proyek proyek) {
         listProyek.add(proyek);
     }
+    @Override
+    public void deleteProyek(UUID id) {
+        listProyek.removeIf(proyek -> proyek.getId().equals(id));
+    }
 
     @Override
     public List<Proyek> getAllProyek() {

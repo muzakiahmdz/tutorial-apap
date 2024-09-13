@@ -14,4 +14,7 @@ public interface ProyekService {
 
     // Method untuk mendapatkan proyek berdasarkan id
     Proyek getProyekById(UUID id);
+
+    // Method untuk menghapus proyek berdasarkan ID
+    void deleteProyek(UUID id);
 }
