@@ -10,10 +10,7 @@
 
 ### Pertanyaan 
 1. Jelaskan kegunaan DTO pada proyek ini? Apakah bisa jika sebuah proyek tidak menggunakan DTO sama sekali?
- - DTO (Data Transfer Object) pada proyek digunakan untuk mengurangi kebocoran data dengan cara memisahkan model data di backend dari data yang ditampilkan atau diterima dari view (HTML). Dengan menggunakan ProyekDTO, validasi dan manipulasi data dapat dilakukan sebelum data disimpan di database, memudahkan proses pengolahan.
-    - Sebuah proyek bisa saja tidak menggunakan DTO, namun hal ini dapat menyebabkan kesulitan dalam validasi data dan meningkatkan risiko kebocoran data. Tanpa DTO, pengelolaan kode bisa menjadi lebih rumit terutama dalam aplikasi berskala besar
-    - Pada proyek manpromanpro, DTO digunakan untuk memisahkan data yang diambil dari model dengan data yang akan ditampilkan atau diterima dari view (HTML). Dengan ProyekDTO, data form dikumpulkan tanpa langsung menghubungkannya ke entity Proyek, sehingga mempermudah validasi dan manipulasi data sebelum disimpan atau diupdate.
-    - Kita dapat tidak menggunakan DTO dalam suatu Proyek. Tetapi penggunaan DTO disarankan karena jika tidak menggunakannya, dapat menimbulkan masalah seperti kebocoran data , sulitnya validasi data, dan pengelolaan kode yang rumit. DTO membantu memisahkan logika bisnis, serta memungkinkan validasi sebelum data disimpan di model. Meskipun bisa tanpa DTO, menggunakannya memberikan keamanan dan struktur yang lebih baik, terutama di aplikasi yang kompleks. 
+   - DTO (Data Transfer Object) pada proyek ini berfungsi memisahkan data model di backend dari data yang dikirim atau diterima melalui view (HTML), sehingga memudahkan validasi dan manipulasi sebelum data disimpan di database, serta mengurangi risiko kebocoran data. Dengan menggunakan **ProyekDTO**, data form dapat dikumpulkan tanpa langsung menghubungkan ke entity utama, memberikan fleksibilitas lebih dalam pengolahan data. Meskipun proyek bisa berjalan tanpa DTO, hal ini akan membuat validasi lebih sulit, meningkatkan risiko kebocoran data, dan memperumit pengelolaan kode, terutama dalam aplikasi berskala besar. Oleh karena itu, penggunaan DTO sangat disarankan untuk menjaga keamanan dan memastikan struktur kode yang lebih teratur.
     - Referensi : https://stackoverflow.com/questions/63643331/shall-i-use-a-dto-or-not
 
 
