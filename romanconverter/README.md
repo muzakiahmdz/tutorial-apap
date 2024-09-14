@@ -33,17 +33,16 @@ Referensi : https://stackoverflow.com/questions/383947/what-does-it-mean-to-prog
 
 4. Menurut kamu anotasi @Autowired pada class Controller tersebut merupakan implementasi dari konsep apa? Dan jelaskan secara singkat cara kerja @Autowired tersebut dalam konteks service dan controller yang telah kamu buat.
 
-Anotasi @Autowired mengimplementasikan konsep Dependency Injection (DI) di Spring Framework. Ini memungkinkan Spring untuk secara otomatis menyuntikkan dependensi yang diperlukan ke dalam class tanpa perlu membuat instance manual. 
-Dalam konteks service dan controller di proyek ini, anotasi @Autowired pada controller menyuntikkan instance dari ProyekService ke dalam ProyekController. Saat aplikasi berjalan, Spring membuat instance service (misalnya, ProyekServiceImpl) dan secara otomatis menyuntikkannya ke controller yang memerlukannya.
+Anotasi `@Autowired` dalam Spring Boot menerapkan konsep **Dependency Injection (DI)**, yang memungkinkan Spring untuk secara otomatis menyuntikkan dependensi yang diperlukan oleh suatu objek, seperti service ke dalam controller, tanpa kita harus membuat instance-nya secara manual. Ini bekerja dengan prinsip **Inversion of Control (IoC)**, di mana Spring yang mengelola siklus hidup objek-objek tersebut melalui IoC container-nya. Dalam konteks proyek kita, yang melibatkan `ProyekController` dan `ProyekService`, kita menggunakan anotasi `@Autowired` untuk menyuntikkan instance dari `ProyekService` ke dalam `ProyekController`. Saat aplikasi dijalankan, Spring akan secara otomatis membuat instance dari `ProyekServiceImpl` atau implementasi service lainnya dan menginjeksi instance tersebut ke dalam controller. Dengan begitu, kita bisa menggunakan `ProyekService` dalam `ProyekController` tanpa harus membuat instance secara manual, yang tentu membuat kode jadi lebih rapi, modular, dan mudah diuji. Jadi, Spring memastikan bahwa dependensi ini dikelola secara otomatis sehingga controller dan service bisa berinteraksi dengan lancar.
 
 Referensi :https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html
 
 
 5. Apa perbedaan @GetMapping dan @PostMapping? Kapan @GetMapping dan @PostMapping digunakan?
 
-@GetMapping digunakan untuk menangani permintaan HTTP GET, umumnya untuk mengambil data atau menampilkan halaman (misalnya, menampilkan form untuk diisi). 
-@PostMapping digunakan untuk menangani permintaan HTTP POST, biasanya untuk mengirimkan data ke server, seperti mengirimkan data form untuk membuat atau memperbarui proyek. 
-Intinya, @GetMapping digunakan untuk membaca data dari server, sedangkan @PostMapping digunakan untuk mengirimkan atau memodifikasi data di server.
+- @GetMapping digunakan untuk menangani permintaan HTTP GET, umumnya untuk mengambil data atau menampilkan halaman (misalnya, menampilkan form untuk diisi). 
+- @PostMapping digunakan untuk menangani permintaan HTTP POST, biasanya untuk mengirimkan data ke server, seperti mengirimkan data form untuk membuat atau memperbarui proyek. 
+Adapun `@GetMapping`digunakan ketika aplikasi perlu mengambil/menampilkan data kepada user, seperti halaman daftar proyek atau detail proyek,sedangkan `@PostMapping` digunakan ketika aplikasi menerima data dari user, seperti saat mengirimkan form untuk menambah atau memperbarui proyek.
 
 Referensi :https://stackoverflow.com/questions/14254049/spring-framework-difference-between-get-and-post
 
@@ -57,13 +56,11 @@ Referensi : https://www.geeksforgeeks.org/spring-deletemapping-and-putmapping-an
 
 7. Jelaskan proses yang terjadi di controller, model, dan service pada proses create proyek, mulai dari fungsi addFormProyek hingga pengguna menerima halaman success-add-proyek.
 
-Controller (addProyekForm): Menampilkan form kosong untuk pengguna dengan menggunakan anotasi @GetMapping. 
-Pengguna mengisi form: Setelah form diisi, data dikirim ke server dengan menggunakan @PostMapping pada controller. 
-DTO dan Model: Data dari form dimasukkan ke dalam DTO (ProyekDTO), kemudian dikonversi ke model Proyek. 
-Service: Controller memanggil ProyekService untuk memproses dan menyimpan data proyek baru ke database. 
-View: Setelah proyek berhasil disimpan, pengguna diarahkan ke halaman sukses (success-add-proyek) yang menunjukkan bahwa proyek telah dibuat.
+Pengguna pertama-tama membuka halaman form tambah proyek melalui URL /proyek/add, di mana mereka akan melihat form yang berasal dari file form-add-proyek.html. Form ini menyediakan kolom untuk mengisi informasi proyek seperti nama proyek, tanggal mulai, tanggal selesai, status, dan developer. Setelah pengguna mengisi form tersebut dan mengklik tombol "Submit", controller akan menangani pengiriman data tersebut melalui metode POST yang dikaitkan dengan anotasi @PostMapping("/add") di dalam ProyekController. Data dari form ini dikemas dalam objek ProyekDTO, kemudian diteruskan ke service. Di ProyekServiceImpl, metode addProyek digunakan untuk menyimpan data proyek baru ini ke dalam daftar proyek yang sudah ada. Setelah data berhasil disimpan, controller akan mengarahkan pengguna ke halaman success-add-proyek.html, yang menampilkan pesan sukses serta ID proyek yang baru saja ditambahkan.
 
-Referensi : https://spring.io/guides/gs/serving-web-content
+Referensi : - https://spring.io/guides/gs/serving-web-content
+            - [Tutorial 2 - Panduan](https://docs.google.com/document/d/1HICGtyb0r49gJ2Q7HXFpeIJYGjGeH0rtMyKh4H3ZDUc/edit)
+            - [Tutorial 2 - Latihan](https://docs.google.com/document/d/1Ai3CsUWiTW9uOsBq8PpGbvNEZrOXOGDOw40_QVo3lig/edit)
 
 
 8. Jelaskan mengenai th:object!
@@ -75,12 +72,10 @@ Referensi : https://teamtreehouse.com/community/how-to-add-an-object-and-then-an
 
 
 9. Jelaskan mengenai th:field!
-TIPS: Buka “view page source” dari halaman Tambah Proyek di browser. Lakukan screenshot kemudian jelaskan temuan kalian.
 
-- ![alt text](image-1.png)
+- ![alt text](image.png)
 
-th:field digunakan untuk memetakan input dari form HTML ke atribut dalam objek model. Atribut ini memudahkan binding data antara form dan objek yang dikirimkan ke backend. 
-Misalnya, di halaman Tambah Proyek, th:field digunakan untuk mengikat nilai dari input HTML seperti nama, tanggalMulai, tanggalSelesai ke atribut yang sesuai di objek ProyekDTO.
+`th:field` dalam Thymeleaf adalah atribut yang digunakan untuk menghubungkan elemen form HTML dengan properti dari objek model yang diikat menggunakan `th:object`. Fungsinya adalah untuk memastikan data yang dimasukkan pengguna secara otomatis dipetakan ke properti objek yang sesuai saat form dikirimkan. Pada penerapannya dalam form Tambah Proyek, `th:field` mengikat field seperti `nama`, `tanggalMulai`, `tanggalSelesai`, `status`, dan `developer` dari form ke objek `ProyekDTO`. Misalnya, input untuk "Nama Proyek" akan secara otomatis dipetakan ke properti `nama` dalam `ProyekDTO`, sedangkan input select untuk "Status" akan memetakan pilihan status ke properti `status`. Dengan demikian, saat form di-submit, Thymeleaf secara otomatis menangani pengiriman dan pemetaan data dari form ke objek, memudahkan pengelolaan form dalam aplikasi Spring.
 
 Referensi : https://www.baeldung.com/thymeleaf-in-spring-mvc
 
