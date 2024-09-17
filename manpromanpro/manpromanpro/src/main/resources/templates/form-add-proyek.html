@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://thymeleaf.org">
+ 
+<head>
+  <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+  <title>Tambah Proyek</title>
+</head>
+ 
+<body>
+    <div class="container">
+        <div class="card m-4 p-4">
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <h2>Tambah Proyek</h2>
+                    <br>
+                    <form th:action="@{/proyek/add}" th:object="${proyekDTO}" method="POST">
+                        <input class="form-control" type="hidden" th:field="*{id}"/>
+                        
+                        <label>Nama Proyek: </label><br>
+                        <input class="form-control" type="text" th:field="*{nama}" required/>
+                        <br><br>
+
+                        <label>Tanggal Mulai: </label><br>
+                        <input class="form-control" type="date" th:field="*{tanggalMulai}" required/>
+                        <br><br>
+
+                        <label>Tanggal Selesai: </label><br>
+                        <input class="form-control" type="date" th:field="*{tanggalSelesai}" required/>
+                        <br><br>
+
+                        <label>Status: </label><br>
+                        <select class="form-control" th:field="*{status}" required>
+                            <option value="On Going">On Going</option>
+                            <option value="Finished">Finished</option>
+                        </select>
+                        <br><br>
+
+                        <label>Developer: </label><br>
+                        <input class="form-control" type="text" th:field="*{developer}" required/>
+                        <br><br>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a class="btn btn-secondary" href="/">Home</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+ 
+</html>
